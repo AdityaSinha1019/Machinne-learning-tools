@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Text Sentiment Analysis</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>
+
+<style>
+body{
+font-family: Arial;
+text-align:center;
+margin-top:40px;
+}
+
+input{
+width:300px;
+padding:10px;
+font-size:16px;
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+margin-top:10px;
+}
+
+#result{
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Text Sentiment Analysis</h2>
+
+<input id="textInput" placeholder="Enter a sentence">
+
+<br>
+
+<button onclick="predictSentiment()">Analyze Sentiment</button>
+
+<div id="result"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
