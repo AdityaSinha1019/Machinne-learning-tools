@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Image Classification with MobileNet</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+
+<style>
+body{
+font-family: Arial;
+text-align:center;
+margin-top:40px;
+}
+
+img{
+margin-top:20px;
+width:300px;
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+margin-top:10px;
+}
+
+#result{
+margin-top:20px;
+font-size:18px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Image Classification using MobileNet</h2>
+
+<input type="file" id="imageUpload">
+
+<br>
+
+<img id="preview">
+
+<br>
+
+<button onclick="classifyImage()">Classify Image</button>
+
+<div id="result"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
