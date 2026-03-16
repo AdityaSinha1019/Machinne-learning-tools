@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Webcam Object Detection</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+
+<style>
+body{
+font-family: Arial;
+text-align:center;
+margin-top:30px;
+}
+
+video{
+border:2px solid black;
+margin-top:20px;
+}
+
+#result{
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Webcam Object Detection using MobileNet</h2>
+
+<button onclick="startWebcam()">Start Webcam</button>
+
+<br>
+
+<video id="webcam" width="400" height="300" autoplay></video>
+
+<div id="result">Waiting...</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
