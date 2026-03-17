@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TF.js Prediction vs Reality</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; padding: 2rem; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        h2 { color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border: 1px solid #e2e8f0; text-align: center; }
+        th { background: #f1f5f9; }
+        .status { font-weight: bold; color: #2563eb; }
+        .success { color: #16a34a; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Model Validation: Unseen Inputs</h2>
+    <p>Rule: <code>y = 10x - 5</code></p>
+    <p id="status" class="status">Status: Training model on known samples...</p>
+
+    <table id="results-table" style="display:none;">
+        <thead>
+            <tr>
+                <th>Unseen Input (X)</th>
+                <th>Expected (Y)</th>
+                <th>Model Prediction</th>
+                <th>Accuracy</th>
+            </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+    </table>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

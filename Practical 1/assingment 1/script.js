@@ -1,22 +1,69 @@
-// Linear Regression with PRE-ENTERED Synthetic Data
-class SyntheticLinearRegression {
-    constructor() {
-        // PRE-ENTERED SYNTHETIC DATASET (100 samples: [size, price])
-        this.syntheticData = [
-            [800,67000],[1200,73000],[1500,77500],[1800,82000],[2000,85000],
-            [2200,88000],[2500,92500],[2800,97000],[3000,100000],[3200,103000],
-            [3500,107500],[3800,112000],[4000,115000],[900,68500],[1100,71500],
-            [1600,79000],[1900,83500],[2100,86500],[2400,91000],[2700,95500],
-            [3100,101500],[3400,106000],[3700,110500],[3900,113500],[750,66500],
-            [1300,74500],[1700,80500],[2300,89500],[2900,98500],[1000,69500],
-            [1400,76000],[1950,84500],[2600,94000],[3300,104500],[3600,109000],
-            [4100,116500],[850,67500],[1250,73800],[1550,78200],[1850,82800],
-            [2050,85800],[2250,88700],[2550,93200],[2850,97800],[3050,100500],
-            [3250,103500],[3550,108000],[3850,112500],[3950,114500],[950,69000],
-            [1150,72200],[1650,79700],[2150,87200],[2450,91700],[2750,96200],
-            [3150,102000],[3450,106500],[3750,111000],[4050,115500],[700,66000],
-            [1350,75200],[1750,81200],[2350,90200],[2950,99200],[1050,70200],
-            [1450,76800],[1980,84800],[2650,94500],[3350,105000],[3650,109500],
-            [4150,117000],[825,67200],[1280,74100],[1580,78500],[1880,83100],
-            [2080,86100],[2280,89000],[2580,93500],[2880,98100],[3080,100800],
-            [3280,103800],[3580,108
+async function runRegression() {
+    const status = document.getElementById('status-bar');
+
+    // --- 1. GENERATE SYNTHETIC DATA ---
+    // Function: y = 2x + 5 (with some randomness)
+    const generateData = (numPoints) => {
+        return tf.tidy(() => {
+            const xs = tf.randomUniform([numPoints], 0, 10);
+            const ys = xs.mul(2).add(5).add(tf.randomNormal([numPoints], 0, 1));
+            return {
+                inputs: xs,
+                labels: ys
+            };
+        });
+    };
+
+    const data = generateData(100);
+    const inputs = data.inputs.arraySync();
+    const labels = data.labels.arraySync();
+
+    // Format data for plotting
+    const values = inputs.map((x, i) => ({ x, y: labels[i] }));
+
+    // Plot initial data
+    tfvis.render.scatterplot(
+        { name: 'Original Data vs Predictions' },
+        { values: [values], series: ['Original'] },
+        { xLabel: 'Input (X)', yLabel: 'Label (Y)', height: 400 }
+    );
+
+    // --- 2. BUILD THE MODEL ---
+    const model = tf.sequential();
+    model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+
+    model.compile({
+        optimizer: tf.train.adam(0.1),
+        loss: 'meanSquaredError'
+    });
+
+    // --- 3. TRAIN THE MODEL ---
+    status.innerText = "Status: Training... watch the chart update!";
+    
+    await model.fit(data.inputs.reshape([100, 1]), data.labels.reshape([100, 1]), {
+        epochs: 50,
+        callbacks: {
+            onEpochEnd: async (epoch, logs) => {
+                // Periodically plot predictions to show the line "moving"
+                if (epoch % 10 === 0) {
+                    const testXs = tf.linspace(0, 10, 10);
+                    const preds = model.predict(testXs.reshape([10, 1]));
+                    const predArray = await preds.array();
+                    const linePoints = testXs.arraySync().map((x, i) => ({ x, y: predArray[i][0] }));
+                    
+                    tfvis.render.scatterplot(
+                        { name: 'Original Data vs Predictions' },
+                        { values: [values, linePoints], series: ['Original', 'Model Prediction'] },
+                        { xLabel: 'Input (X)', yLabel: 'Label (Y)', height: 400 }
+                    );
+                }
+            }
+        }
+    });
+
+    status.innerText = "Status: Training Complete! The line now fits the data.";
+    status.style.background = "#e6ffed";
+    status.style.color = "#22863a";
+}
+
+runRegression();
