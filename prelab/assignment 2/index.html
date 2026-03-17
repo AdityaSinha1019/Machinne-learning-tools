@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TF.js Vector Ops & Training</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #fdfdfd; padding: 40px; }
+        .dashboard { max-width: 900px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px; background: white; }
+        h2 { color: #ff6d00; }
+        #console-output { background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; font-family: monospace; overflow-x: auto; }
+        .status-box { margin-top: 10px; padding: 10px; border-left: 5px solid #ff6d00; background: #fff3e0; }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <h2>TensorFlow.js: Vector Math & Training</h2>
+    <div id="console-output">Checking Tensors... (Open F12 for full details)</div>
+    
+    <div class="status-box">
+        <strong>Model Status:</strong> <span id="model-status">Waiting to start...</span>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

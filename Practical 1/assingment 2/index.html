@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Rate & Synthetic Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+        .container {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            max-width: 900px;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        h2 { border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+        .chart-wrapper { position: relative; height: 400px; width: 100%; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>1. Our Synthetic Data</h2>
+    <p>We generated 100 random points representing the equation <strong>y = 5x + 3</strong>, with some added random noise so it looks like real-world data.</p>
+    <div class="chart-wrapper">
+        <canvas id="dataChart"></canvas>
+    </div>
+</div>
+
+<div class="container">
+    <h2>2. Learning Rate Convergence</h2>
+    <p>How quickly the model figures out the line above using different step sizes (Learning Rates).</p>
+    <div class="chart-wrapper">
+        <canvas id="lossChart"></canvas>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
